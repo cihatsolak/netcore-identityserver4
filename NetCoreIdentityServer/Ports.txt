@@ -1,0 +1,7 @@
+IdentityServer.AuthServer: https://localhost:5000
+
+IdentityServer.WebClient1: https://localhost:5001
+IdentityServer.WebClient2: https://localhost:5002
+
+IdentityServer.API1: https://localhost:5003
+IdentityServer.API2: https://localhost:5004
