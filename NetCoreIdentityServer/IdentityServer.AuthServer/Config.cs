@@ -4,7 +4,7 @@ using System.Collections.Generic;
 namespace IdentityServer.AuthServer
 {
     /// <summary>
-    /// 
+    /// Identity server ayarları
     /// </summary>
     public static class Config
     {
