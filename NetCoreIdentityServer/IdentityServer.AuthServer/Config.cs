@@ -104,9 +104,7 @@ namespace IdentityServer.AuthServer
                     AllowedGrantTypes = GrantTypes.ClientCredentials, //Kullanıcıyla ilgili işlemim yok, sadece client istek yaptıgı zaman akışa uygun token ver.
                     AllowedScopes  = new List<string> //Client1 hangi apilere ne izni var?
                     {
-                        "IdentityServer.API1.Read", //Api1'de okuma izni
-                        "IdentityServer.API2.Write", //Api2'de yazma izmi
-                        "IdentityServer.API2.Update", //Api2'de güncelleme izni
+                        "IdentityServer.API1.Read" //Api1'de okuma izni
                     }
                 },
                 new Client()
