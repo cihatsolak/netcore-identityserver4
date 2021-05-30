@@ -24,6 +24,13 @@ namespace IdentityServer.AuthServer
                         "IdentityServer.API1.Read",
                         "IdentityServer.API1.Create",
                         "IdentityServer.API1.Update"
+                    },
+                    ApiSecrets = new List<Secret> // connect/introspect basic Auth
+                    {
+                        new Secret
+                        {
+                            Value = "SecretAPI1".Sha256()
+                        }
                     }
                 },
                 new ApiResource
@@ -34,6 +41,13 @@ namespace IdentityServer.AuthServer
                         "IdentityServer.API2.Read",
                         "IdentityServer.API2.Create",
                         "IdentityServer.API2.Update"
+                    },
+                    ApiSecrets = new List<Secret> // connect/introspect basic Auth
+                    {
+                        new Secret
+                        {
+                            Value = "SecretAPI2".Sha256()
+                        }
                     }
                 }
             };
@@ -102,7 +116,7 @@ namespace IdentityServer.AuthServer
                         new Secret("SampleClientSecret".Sha256())
                     },
                     AllowedGrantTypes = GrantTypes.ClientCredentials, //Kullanıcıyla ilgili işlemim yok, sadece client istek yaptıgı zaman akışa uygun token ver.
-                    AllowedScopes  = new List<string> //Client1 hangi apilere ne izni var?
+                    AllowedScopes = new List<string> //Client1 hangi apilere ne izni var?
                     {
                         "IdentityServer.API1.Read" //Api1'de okuma izni
                     }
