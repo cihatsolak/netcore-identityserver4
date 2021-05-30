@@ -9,7 +9,7 @@ namespace IdentityServer.API1.Controllers
     [ApiController]
     public class VehiclesController : ControllerBase
     {
-        [Authorize]
+        [Authorize(Policy = "ReadVehicles")]
         [HttpGet]
         public IActionResult GetVehicles()
         {
@@ -46,6 +46,20 @@ namespace IdentityServer.API1.Controllers
             };
 
             return Ok(vehicles);
+        }
+
+        [Authorize(Policy = "UpdateOrCreateVehicles")]
+        [HttpPost]
+        public IActionResult InsertVehicle()
+        {
+            return CreatedAtAction(nameof(InsertVehicle), "Vehicle inserted!");
+        }
+
+        [Authorize(Policy = "UpdateOrCreateVehicles")]
+        [HttpPut]
+        public IActionResult UpdateVehicle()
+        {
+            return NoContent();
         }
     }
 }

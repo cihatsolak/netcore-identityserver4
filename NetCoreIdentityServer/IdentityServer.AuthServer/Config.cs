@@ -22,7 +22,7 @@ namespace IdentityServer.AuthServer
                     Scopes = //Identity Servera API1'in nelere yetkisi olduğunu belirtiyorum
                     {
                         "IdentityServer.API1.Read",
-                        "IdentityServer.API1.Write",
+                        "IdentityServer.API1.Create",
                         "IdentityServer.API1.Update"
                     }
                 },
@@ -32,7 +32,7 @@ namespace IdentityServer.AuthServer
                     Scopes = //Identity Servera API2'in nelere yetkisi olduğunu belirtiyorum
                     {
                         "IdentityServer.API2.Read",
-                        "IdentityServer.API2.Write",
+                        "IdentityServer.API2.Create",
                         "IdentityServer.API2.Update"
                     }
                 }
@@ -56,7 +56,7 @@ namespace IdentityServer.AuthServer
                 },
                 new ApiScope
                 {
-                    Name = "IdentityServer.API1.Write",
+                    Name = "IdentityServer.API1.Create",
                     DisplayName = "API 1 - Yazma İzni"
                 },
                 new ApiScope
@@ -72,7 +72,7 @@ namespace IdentityServer.AuthServer
                 },
                 new ApiScope
                 {
-                    Name = "IdentityServer.API2.Write",
+                    Name = "IdentityServer.API2.Create",
                     DisplayName = "API 2 - Yazma İzni"
                 },
                 new ApiScope
@@ -119,7 +119,7 @@ namespace IdentityServer.AuthServer
                     AllowedScopes = new List<string> //Client1 hangi apilere ne izni var?
                     {
                         "IdentityServer.API1.Read", //Api1'de okuma izni
-                        "IdentityServer.API2.Write", //Api2'de yazma izmi
+                        "IdentityServer.API2.Create", //Api2'de yazma izmi
                         "IdentityServer.API2.Update", //Api2'de güncelleme izni
                     }
                 }

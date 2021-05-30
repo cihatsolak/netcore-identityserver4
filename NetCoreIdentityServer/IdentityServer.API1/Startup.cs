@@ -26,6 +26,19 @@ namespace IdentityServer.API1
                     options.Audience = "IdentityServer.API1"; //Gelen token'un Audience property'sinde mutlaka bu alan olmalý.
                 });
 
+            services.AddAuthorization(options =>
+            {
+                options.AddPolicy("ReadVehicles", policy =>
+                {
+                    policy.RequireClaim("scope", "IdentityServer.API1.Read"); //Token'ýn Header'ýnda bulunan scope içerisinde bu þartý saðlamalý
+                });
+
+                options.AddPolicy("UpdateOrCreateVehicles", policy =>
+                {
+                    policy.RequireClaim("scope", "IdentityServer.API1.Create", "IdentityServer.API1.Update"); //Token'ýn Header'ýnda bulunan scope içerisinde bu þartý saðlamalý
+                });
+            });
+
             services.AddControllers();
         }
 
