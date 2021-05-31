@@ -1,0 +1,28 @@
+﻿@model List<VehicleDTO>
+@{
+    ViewData["Title"] = "Vehicles";
+}
+
+<h1>Vehicles</h1>
+
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Brand</th>
+            <th>Price</th>
+            <th>Stock</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var vehicle in Model)
+        {
+            <tr>
+                <td>@vehicle.Id</td>
+                <td>@vehicle.Brand</td>
+                <td>@vehicle.Price</td>
+                <td>@vehicle.Stock</td>
+            </tr>
+        }
+    </tbody>
+</table>
