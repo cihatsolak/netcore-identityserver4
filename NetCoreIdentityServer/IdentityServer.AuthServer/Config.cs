@@ -191,8 +191,8 @@ namespace IdentityServer.AuthServer
                     Password = "123456",
                     Claims = new List<Claim> //Claim: Token içerisinde bulunacak datalar.
                     {
-                        new Claim(ClaimTypes.Name, "Cihat"),
-                        new Claim(ClaimTypes.Surname, "Solak")
+                        new Claim("given_name", "Cihat"),
+                        new Claim("family_name", "Solak")
                     }
                 },
                 new TestUser
@@ -202,8 +202,8 @@ namespace IdentityServer.AuthServer
                     Password = "123456",
                     Claims = new List<Claim> //Claim: Token içerisinde bulunacak datalar.
                     {
-                        new Claim(ClaimTypes.Name, "Mesut"),
-                        new Claim(ClaimTypes.Surname, "Solak")
+                        new Claim("given_name", "Mesut"),
+                        new Claim("family_name","Solak")
                     }
                 }
             };

@@ -31,6 +31,7 @@ namespace IdentityServer.WebClient1
                 options.ClientId = "SampleClient3";
                 options.ClientSecret = "SampleClientSecret";
                 options.ResponseType = "code id_token"; //Response'da ne istiyorum?
+                options.GetClaimsFromUserInfoEndpoint = true; //Claimde eklemiþ oldugum user bilgilerini cookie'e dahil et.
             });
 
             services.AddControllersWithViews();
