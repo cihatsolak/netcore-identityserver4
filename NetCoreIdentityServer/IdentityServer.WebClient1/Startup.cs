@@ -32,6 +32,7 @@ namespace IdentityServer.WebClient1
                 options.ClientSecret = "SampleClientSecret";
                 options.ResponseType = "code id_token"; //Response'da ne istiyorum?
                 options.GetClaimsFromUserInfoEndpoint = true; //Claimde eklemiþ oldugum user bilgilerini cookie'e dahil et.
+                options.SaveTokens = true; //Baþarýlý giriþte access/refresh token'ý kaydet.
             });
 
             services.AddControllersWithViews();
@@ -52,7 +53,7 @@ namespace IdentityServer.WebClient1
                 app.UseHsts();
             }
             app.UseHttpsRedirection();
-            app.UseStaticFiles();
+            app.UseStaticFiles(); 
 
             app.UseRouting();
 
