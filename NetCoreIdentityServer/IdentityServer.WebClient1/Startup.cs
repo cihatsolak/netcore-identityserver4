@@ -33,6 +33,8 @@ namespace IdentityServer.WebClient1
                 options.ResponseType = "code id_token"; //Response'da ne istiyorum?
                 options.GetClaimsFromUserInfoEndpoint = true; //Claimde eklemiþ oldugum user bilgilerini cookie'e dahil et.
                 options.SaveTokens = true; //Baþarýlý giriþte access/refresh token'ý kaydet.
+                options.Scope.Add("IdentityServer.API1.Read"); //Api1 için okuma izni istiyorum. (Daha önce auth server'da tanýmlandý)
+                options.Scope.Add("offline_access"); //Api1 refresh token scope'unu talep ediyorum. (Daha önce auth server'da tanýmlandý)
             });
 
             services.AddControllersWithViews();

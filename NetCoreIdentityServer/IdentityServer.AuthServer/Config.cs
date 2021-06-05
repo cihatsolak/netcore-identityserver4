@@ -1,6 +1,7 @@
 ﻿using IdentityServer4;
 using IdentityServer4.Models;
 using IdentityServer4.Test;
+using System;
 using System.Collections.Generic;
 using System.Security.Claims;
 
@@ -157,8 +158,14 @@ namespace IdentityServer.AuthServer
                     {
                         IdentityServerConstants.StandardScopes.OpenId, //OpenId bilgisine erişeyeceğim
                         IdentityServerConstants.StandardScopes.Profile, //Kullanıcı bilgilerine erişeceğim
+                        IdentityServerConstants.StandardScopes.OfflineAccess, //Refresh token
+                        "IdentityServer.API1.Read" //Api1 için okuma izni
                     },
-                    RequirePkce = false
+                    RequirePkce = false,
+                    AccessTokenLifetime = DateTime.Now.AddHours(2).Second, //Access token ömrünü 2 saat ayarladım
+                    AllowOfflineAccess = true, //Refresh token yayınlanması için
+                    AbsoluteRefreshTokenLifetime = DateTime.Now.AddDays(30).Second, //Refresh token ömrünü 1 ay ayarladım
+                    RefreshTokenUsage = TokenUsage.ReUse //OneTimeOnly: Bu refresh token'ı bir kere kullanbilirsin. || ReUse: Tekrar tekrar kullanabilirsin.
                 }
             };
 
