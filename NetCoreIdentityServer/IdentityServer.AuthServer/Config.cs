@@ -154,6 +154,10 @@ namespace IdentityServer.AuthServer
                     {
                         "https://localhost:5001/signin-oidc"
                     },
+                    PostLogoutRedirectUris = new List<string> //Uygulamadan çıkış yaptıldığında
+                    {
+                        "https://localhost:5001/signout-callback-oidc"
+                    },
                     AllowedScopes = new List<string> //Bu web uygulaması hangi izinlere sahip olacak?
                     {
                         IdentityServerConstants.StandardScopes.OpenId, //OpenId bilgisine erişeyeceğim
@@ -162,9 +166,9 @@ namespace IdentityServer.AuthServer
                         "IdentityServer.API1.Read" //Api1 için okuma izni
                     },
                     RequirePkce = false,
-                    AccessTokenLifetime = DateTime.Now.AddHours(2).Second, //Access token ömrünü 2 saat ayarladım
+                    AccessTokenLifetime = 2 * 60 * 30, //Access token ömrünü 2 saat ayarladım
                     AllowOfflineAccess = true, //Refresh token yayınlanması için
-                    AbsoluteRefreshTokenLifetime = DateTime.Now.AddDays(30).Second, //Refresh token ömrünü 1 ay ayarladım
+                    AbsoluteRefreshTokenLifetime = (int)(DateTime.Now.AddDays(50) - DateTime.Now).TotalSeconds, //Refresh token ömrünü 50 gün ayarladım
                     RefreshTokenUsage = TokenUsage.ReUse //OneTimeOnly: Bu refresh token'ı bir kere kullanbilirsin. || ReUse: Tekrar tekrar kullanabilirsin.
                 }
             };
