@@ -18,6 +18,21 @@ namespace IdentityServer.WebClient1
 
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddAuthentication(options =>
+            {
+                options.DefaultScheme = "WebClient1Cookie"; //Web cookie ismi (Ýsim rastgele Verilmiþtir.)
+                options.DefaultChallengeScheme = "OpenIdConnectCookie"; //IdentityServer projesinden gelecek cookie (Ýsim rastgele Verilmiþtir.)
+            })
+            .AddCookie("WebClient1Cookie")
+            .AddOpenIdConnect("OpenIdConnectCookie", options =>
+            {
+                options.SignInScheme = "WebClient1Cookie";
+                options.Authority = "https://localhost:5000"; //Token daðýtan yer, yetkili kim?
+                options.ClientId = "SampleClient3";
+                options.ClientSecret = "SampleClientSecret";
+                options.ResponseType = "code id_token"; //Response'da ne istiyorum?
+            });
+
             services.AddControllersWithViews();
 
             services.Configure<ClientSettings>(Configuration.GetSection(nameof(ClientSettings)));
