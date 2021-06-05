@@ -1,4 +1,5 @@
-﻿using IdentityServer4.Models;
+﻿using IdentityServer4;
+using IdentityServer4.Models;
 using IdentityServer4.Test;
 using System.Collections.Generic;
 using System.Security.Claims;
@@ -138,6 +139,26 @@ namespace IdentityServer.AuthServer
                         "IdentityServer.API2.Create", //Api2'de yazma izmi
                         "IdentityServer.API2.Update", //Api2'de güncelleme izni
                     }
+                },
+                new Client()
+                {
+                    ClientName = "Web - Sample Client 3",
+                    ClientId = "SampleClient3",
+                    ClientSecrets = new List<Secret>
+                    {
+                        new Secret("SampleClientSecret".Sha256())
+                    },
+                    AllowedGrantTypes = GrantTypes.Hybrid, //Serverdan response olarak hem token hemde id_token istediğimden dolayı akış hybrid olacaktır.
+                    RedirectUris = new List<string> //token alımını gerçekleştiren url ve bu urldende herhangi bir sayfaya yönlendirme işlemi gerçekleştirilecek.
+                    {
+                        "https://localhost:5001/signin-oidc"
+                    },
+                    AllowedScopes = new List<string> //Bu web uygulaması hangi izinlere sahip olacak?
+                    {
+                        IdentityServerConstants.StandardScopes.OpenId, //OpenId bilgisine erişeyeceğim
+                        IdentityServerConstants.StandardScopes.Profile, //Kullanıcı bilgilerine erişeceğim
+                    },
+                    RequirePkce = false
                 }
             };
 
