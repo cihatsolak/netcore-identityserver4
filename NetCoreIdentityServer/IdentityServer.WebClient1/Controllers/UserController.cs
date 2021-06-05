@@ -1,5 +1,8 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using IdentityServer.WebClient1.Models.Users;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Linq;
 
 namespace IdentityServer.WebClient1.Controllers
 {
@@ -8,7 +11,13 @@ namespace IdentityServer.WebClient1.Controllers
     {
         public IActionResult Index()
         {
-            return View();
+            UserConfigureViewModel userConfigureViewModel = new()
+            {
+                Claims = User.Claims.ToList(),
+                AuthenticationItems = HttpContext.AuthenticateAsync().Result.Properties.Items.ToDictionary(p => p.Key, p => p.Value)
+            };
+
+            return View(userConfigureViewModel);
         }
     }
 }
