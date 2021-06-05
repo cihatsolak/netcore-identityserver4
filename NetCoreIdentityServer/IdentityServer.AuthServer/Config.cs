@@ -1,5 +1,7 @@
 ﻿using IdentityServer4.Models;
+using IdentityServer4.Test;
 using System.Collections.Generic;
+using System.Security.Claims;
 
 namespace IdentityServer.AuthServer
 {
@@ -140,6 +142,52 @@ namespace IdentityServer.AuthServer
             };
 
             return clients;
+        }
+
+        public static IEnumerable<IdentityResource> GetIdentityResources()
+        {
+            List<IdentityResource> identityResources = new()
+            {
+                new IdentityResources.OpenId(), //SubId
+                new IdentityResources.Profile() //Kullanıcı ile ilgili claimler
+            };
+
+            return identityResources;
+        }
+
+        /// <summary>
+        /// Kullanıcı dataları
+        /// TestUser -> namespace IdentityServer4.Test
+        /// </summary>
+        public static List<TestUser> GetTestUsers()
+        {
+            List<TestUser> testUsers = new()
+            {
+                new TestUser
+                {
+                    SubjectId = "1", //Kullanıcı id'si
+                    Username = "cihatsolak", //İhtiyaca göre username'i e-posta olarak kullanabiliriz.
+                    Password = "123456",
+                    Claims = new List<Claim> //Claim: Token içerisinde bulunacak datalar.
+                    {
+                        new Claim(ClaimTypes.Name, "Cihat"),
+                        new Claim(ClaimTypes.Surname, "Solak")
+                    }
+                },
+                new TestUser
+                {
+                    SubjectId = "2", //Kullanıcı id'si
+                    Username = "mesutsolak", //İhtiyaca göre username'i e-posta olarak kullanabiliriz.
+                    Password = "123456",
+                    Claims = new List<Claim> //Claim: Token içerisinde bulunacak datalar.
+                    {
+                        new Claim(ClaimTypes.Name, "Mesut"),
+                        new Claim(ClaimTypes.Surname, "Solak")
+                    }
+                }
+            };
+
+            return testUsers;
         }
     }
 }
