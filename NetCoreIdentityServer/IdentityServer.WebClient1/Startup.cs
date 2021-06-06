@@ -2,6 +2,7 @@ using IdentityServer.WebClient1.Models.Settings;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -25,7 +26,10 @@ namespace IdentityServer.WebClient1
                 options.DefaultScheme = "WebClient1Cookie"; //Web cookie ismi (Ýsim rastgele Verilmiþtir.)
                 options.DefaultChallengeScheme = "OpenIdConnectCookie"; //IdentityServer projesinden gelecek cookie (Ýsim rastgele Verilmiþtir.)
             })
-            .AddCookie("WebClient1Cookie")
+            .AddCookie("WebClient1Cookie", options =>
+            {
+                options.AccessDeniedPath = new PathString("/User/AccessDenied");
+            })
             .AddOpenIdConnect("OpenIdConnectCookie", options =>
             {
                 options.SignInScheme = "WebClient1Cookie";
@@ -68,7 +72,7 @@ namespace IdentityServer.WebClient1
                 app.UseHsts();
             }
             app.UseHttpsRedirection();
-            app.UseStaticFiles(); 
+            app.UseStaticFiles();
 
             app.UseRouting();
 
