@@ -55,6 +55,7 @@ namespace IdentityServer.WebClient1
             });
 
             services.AddControllersWithViews();
+            services.AddHttpContextAccessor();
 
             services.Configure<ClientSettings>(Configuration.GetSection(nameof(ClientSettings)));
         }

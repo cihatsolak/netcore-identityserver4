@@ -1,29 +1,38 @@
 ﻿using IdentityModel.Client;
 using IdentityServer.WebClient1.Models.DTOs;
 using IdentityServer.WebClient1.Models.Settings;
+using IdentityServer.WebClient1.Services;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using Microsoft.IdentityModel.Protocols.OpenIdConnect;
 using Newtonsoft.Json;
-using System;
 using System.Collections.Generic;
 using System.Net.Http;
-using System.Text.Json;
 using System.Threading.Tasks;
 
 namespace IdentityServer.WebClient1.Controllers
 {
+    [Authorize]
     public class VehiclesController : Controller
     {
         private readonly ClientSettings _clientSettings;
         private readonly ILogger<VehiclesController> _logger;
+        private readonly IHttpClientService _httpClientService;
 
-        public VehiclesController(IOptions<ClientSettings> clientSettings, ILogger<VehiclesController> logger)
+        public VehiclesController(IOptions<ClientSettings> clientSettings, ILogger<VehiclesController> logger, IHttpClientService httpClientService)
         {
             _clientSettings = clientSettings.Value;
             _logger = logger;
+            _httpClientService = httpClientService;
         }
 
+        /// <summary>
+        /// Önce token alıp sonra istek yaptıgımız hayali bir senaryo
+        /// </summary>
+        /// <returns></returns>
         [HttpGet]
         public async Task<IActionResult> Index()
         {
@@ -51,6 +60,28 @@ namespace IdentityServer.WebClient1.Controllers
             }
 
             httpClient.SetBearerToken(tokenResponse.AccessToken); //Bearer token
+
+            var httpResponseMessage = await httpClient.GetAsync("https://localhost:5003/api/vehicles/getvehicles");
+            if (!httpResponseMessage.IsSuccessStatusCode)
+            {
+                _logger.LogWarning("Apiye istek atılamadı!");
+                return View();
+            }
+
+            var content = await httpResponseMessage.Content.ReadAsStringAsync();
+            var vehiclesDTO = JsonConvert.DeserializeObject<List<VehicleDTO>>(content);
+
+            return View(vehiclesDTO);
+        }
+
+        /// <summary>
+        /// Token almama gerek yok, uygulamaya giriş yapmış kullanıcının token'ı ile işlem yapıyorum. 
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet]
+        public async Task<IActionResult> Index2()
+        {
+            var httpClient = await _httpClientService.GetHttpClientAsync();
 
             var httpResponseMessage = await httpClient.GetAsync("https://localhost:5003/api/vehicles/getvehicles");
             if (!httpResponseMessage.IsSuccessStatusCode)
