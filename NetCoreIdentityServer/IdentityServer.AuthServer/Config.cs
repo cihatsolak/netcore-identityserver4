@@ -172,7 +172,40 @@ namespace IdentityServer.AuthServer
                     AllowOfflineAccess = true, //Refresh token yayınlanması için
                     AbsoluteRefreshTokenLifetime = (int)(DateTime.Now.AddDays(50) - DateTime.Now).TotalSeconds, //Refresh token ömrünü 50 gün ayarladım
                     RefreshTokenUsage = TokenUsage.ReUse, //OneTimeOnly: Bu refresh token'ı bir kere kullanbilirsin. || ReUse: Tekrar tekrar kullanabilirsin.
-                    RequireConsent = true //3üncü taraf login'de onay ekranı çıkacak.
+                    RequireConsent = true //login'de onay ekranı çıkmayacak.
+                },
+                new Client()
+                {
+                    ClientName = "Web - Sample Client 4",
+                    ClientId = "SampleClient4",
+                    ClientSecrets = new List<Secret>
+                    {
+                        new Secret("SampleClientSecret".Sha256())
+                    },
+                    AllowedGrantTypes = GrantTypes.Hybrid, //Serverdan response olarak hem token hemde id_token istediğimden dolayı akış hybrid olacaktır.
+                    RedirectUris = new List<string> //token alımını gerçekleştiren url ve bu urldende herhangi bir sayfaya yönlendirme işlemi gerçekleştirilecek.
+                    {
+                        "https://localhost:5002/signin-oidc"
+                    },
+                    PostLogoutRedirectUris = new List<string> //Uygulamadan çıkış yaptıldığında
+                    {
+                        "https://localhost:5002/signout-callback-oidc"
+                    },
+                    AllowedScopes = new List<string> //Bu web uygulaması hangi izinlere sahip olacak?
+                    {
+                        IdentityServerConstants.StandardScopes.OpenId, //OpenId bilgisine erişeyeceğim
+                        IdentityServerConstants.StandardScopes.Profile, //Kullanıcı bilgilerine erişeceğim
+                        IdentityServerConstants.StandardScopes.OfflineAccess, //Refresh token
+                        "IdentityServer.API1.Read", //Api1 için okuma izni
+                        "CountryAndCityCustomResource", //Custom claims
+                        "RolesCustomResource"
+                    },
+                    RequirePkce = false,
+                    AccessTokenLifetime = 2 * 60 * 30, //Access token ömrünü 2 saat ayarladım
+                    AllowOfflineAccess = true, //Refresh token yayınlanması için
+                    AbsoluteRefreshTokenLifetime = (int)(DateTime.Now.AddDays(50) - DateTime.Now).TotalSeconds, //Refresh token ömrünü 50 gün ayarladım
+                    RefreshTokenUsage = TokenUsage.ReUse, //OneTimeOnly: Bu refresh token'ı bir kere kullanbilirsin. || ReUse: Tekrar tekrar kullanabilirsin.
+                    RequireConsent = false //login'de onay ekranı çıkmayacak.
                 }
             };
 
