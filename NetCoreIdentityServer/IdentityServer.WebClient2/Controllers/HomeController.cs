@@ -1,4 +1,5 @@
 ﻿using IdentityServer.WebClient2.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
@@ -19,6 +20,13 @@ namespace IdentityServer.WebClient2.Controllers
         }
 
         public IActionResult Index()
+        {
+            return View();
+        }
+
+        [HttpGet]
+        [Authorize]
+        public IActionResult Test()
         {
             return View();
         }

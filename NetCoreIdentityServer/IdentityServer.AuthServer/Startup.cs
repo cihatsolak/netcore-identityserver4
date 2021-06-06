@@ -21,6 +21,8 @@ namespace IdentityServer.AuthServer
                 .AddInMemoryApiResources(Config.GetApiResources())
                 .AddInMemoryApiScopes(Config.GetApiScopes())
                 .AddInMemoryClients(Config.GetClients())
+                .AddInMemoryIdentityResources(Config.GetIdentityResources())
+                .AddTestUsers(Config.GetTestUsers()) //Geliþtirme için test userlarý ekliyorum.
                 .AddDeveloperSigningCredential(); //Development esnasýnda kullanabileceðim bir public key ve Private key oluþturur.
 
             services.AddControllersWithViews();
