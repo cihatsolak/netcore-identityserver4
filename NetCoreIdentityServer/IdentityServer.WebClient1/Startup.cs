@@ -1,4 +1,5 @@
 using IdentityServer.WebClient1.Models.Settings;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -35,6 +36,10 @@ namespace IdentityServer.WebClient1
                 options.SaveTokens = true; //Baþarýlý giriþte access/refresh token'ý kaydet.
                 options.Scope.Add("IdentityServer.API1.Read"); //Api1 için okuma izni istiyorum. (Daha önce auth server'da tanýmlandý)
                 options.Scope.Add("offline_access"); //Api1 refresh token scope'unu talep ediyorum. (Daha önce auth server'da tanýmlandý)
+
+                options.Scope.Add("CountryAndCityCustomResource"); //Api1 CountryAndCityCustomResource scope'unu talep ediyorum. (Daha önce auth server'da tanýmlandý)
+                options.ClaimActions.MapUniqueJsonKey("Country", "Country"); //AuthServerdan gelen claim ismiyle buradaki claim'i maple
+                options.ClaimActions.MapUniqueJsonKey("City", "City"); //AuthServerdan gelen claim ismiyle buradaki claim'i maple
             });
 
             services.AddControllersWithViews();

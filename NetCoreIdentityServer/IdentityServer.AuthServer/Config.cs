@@ -163,13 +163,15 @@ namespace IdentityServer.AuthServer
                         IdentityServerConstants.StandardScopes.OpenId, //OpenId bilgisine erişeyeceğim
                         IdentityServerConstants.StandardScopes.Profile, //Kullanıcı bilgilerine erişeceğim
                         IdentityServerConstants.StandardScopes.OfflineAccess, //Refresh token
-                        "IdentityServer.API1.Read" //Api1 için okuma izni
+                        "IdentityServer.API1.Read", //Api1 için okuma izni
+                        "CountryAndCityCustomResource" //Custom claims
                     },
                     RequirePkce = false,
                     AccessTokenLifetime = 2 * 60 * 30, //Access token ömrünü 2 saat ayarladım
                     AllowOfflineAccess = true, //Refresh token yayınlanması için
                     AbsoluteRefreshTokenLifetime = (int)(DateTime.Now.AddDays(50) - DateTime.Now).TotalSeconds, //Refresh token ömrünü 50 gün ayarladım
-                    RefreshTokenUsage = TokenUsage.ReUse //OneTimeOnly: Bu refresh token'ı bir kere kullanbilirsin. || ReUse: Tekrar tekrar kullanabilirsin.
+                    RefreshTokenUsage = TokenUsage.ReUse, //OneTimeOnly: Bu refresh token'ı bir kere kullanbilirsin. || ReUse: Tekrar tekrar kullanabilirsin.
+                    RequireConsent = true //3üncü taraf login'de onay ekranı çıkacak.
                 }
             };
 
@@ -181,7 +183,18 @@ namespace IdentityServer.AuthServer
             List<IdentityResource> identityResources = new()
             {
                 new IdentityResources.OpenId(), //SubId
-                new IdentityResources.Profile() //Kullanıcı ile ilgili claimler
+                new IdentityResources.Profile(), //Kullanıcı ile ilgili claimler
+                new IdentityResource()
+                {
+                    Name = "CountryAndCityCustomResource",
+                    DisplayName = "Ülke ve Şehir Bilgisi",
+                    Description = "Kullanıcının ülke ve şehir bilgisi.",
+                    UserClaims = new List<string>
+                    {
+                        "Country",
+                        "City"
+                    }
+                }
             };
 
             return identityResources;
@@ -203,7 +216,9 @@ namespace IdentityServer.AuthServer
                     Claims = new List<Claim> //Claim: Token içerisinde bulunacak datalar.
                     {
                         new Claim("given_name", "Cihat"),
-                        new Claim("family_name", "Solak")
+                        new Claim("family_name", "Solak"),
+                        new Claim("Country", "Türkiye"),
+                        new Claim("City","İstanbul")
                     }
                 },
                 new TestUser
@@ -214,7 +229,9 @@ namespace IdentityServer.AuthServer
                     Claims = new List<Claim> //Claim: Token içerisinde bulunacak datalar.
                     {
                         new Claim("given_name", "Mesut"),
-                        new Claim("family_name","Solak")
+                        new Claim("family_name","Solak"),
+                        new Claim("Country", "Türkiye"),
+                        new Claim("City","Ankara")
                     }
                 }
             };
