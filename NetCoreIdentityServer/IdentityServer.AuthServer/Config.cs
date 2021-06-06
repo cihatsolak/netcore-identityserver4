@@ -164,7 +164,8 @@ namespace IdentityServer.AuthServer
                         IdentityServerConstants.StandardScopes.Profile, //Kullanıcı bilgilerine erişeceğim
                         IdentityServerConstants.StandardScopes.OfflineAccess, //Refresh token
                         "IdentityServer.API1.Read", //Api1 için okuma izni
-                        "CountryAndCityCustomResource" //Custom claims
+                        "CountryAndCityCustomResource", //Custom claims
+                        "RolesCustomResource"
                     },
                     RequirePkce = false,
                     AccessTokenLifetime = 2 * 60 * 30, //Access token ömrünü 2 saat ayarladım
@@ -194,6 +195,16 @@ namespace IdentityServer.AuthServer
                         "Country",
                         "City"
                     }
+                },
+                new IdentityResource
+                {
+                    Name = "RolesCustomResource",
+                    DisplayName = "Roller",
+                    Description = "Kullanıcıya ait rol bilgisi",
+                    UserClaims = new List<string>
+                    {
+                        "Role"
+                    }
                 }
             };
 
@@ -218,7 +229,8 @@ namespace IdentityServer.AuthServer
                         new Claim("given_name", "Cihat"),
                         new Claim("family_name", "Solak"),
                         new Claim("Country", "Türkiye"),
-                        new Claim("City","İstanbul")
+                        new Claim("City","İstanbul"),
+                        new Claim("Role","Admin")
                     }
                 },
                 new TestUser
@@ -231,7 +243,8 @@ namespace IdentityServer.AuthServer
                         new Claim("given_name", "Mesut"),
                         new Claim("family_name","Solak"),
                         new Claim("Country", "Türkiye"),
-                        new Claim("City","Ankara")
+                        new Claim("City","Ankara"),
+                        new Claim("Role","Customer")
                     }
                 }
             };

@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.IdentityModel.Tokens;
 
 namespace IdentityServer.WebClient1
 {
@@ -35,11 +36,18 @@ namespace IdentityServer.WebClient1
                 options.GetClaimsFromUserInfoEndpoint = true; //Claimde eklemiþ oldugum user bilgilerini cookie'e dahil et.
                 options.SaveTokens = true; //Baþarýlý giriþte access/refresh token'ý kaydet.
                 options.Scope.Add("IdentityServer.API1.Read"); //Api1 için okuma izni istiyorum. (Daha önce auth server'da tanýmlandý)
-                options.Scope.Add("offline_access"); //Api1 refresh token scope'unu talep ediyorum. (Daha önce auth server'da tanýmlandý)
+                options.Scope.Add("offline_access"); //Refresh token scope'unu talep ediyorum. (Daha önce auth server'da tanýmlandý)
 
-                options.Scope.Add("CountryAndCityCustomResource"); //Api1 CountryAndCityCustomResource scope'unu talep ediyorum. (Daha önce auth server'da tanýmlandý)
+                options.Scope.Add("CountryAndCityCustomResource"); //CountryAndCityCustomResource scope'unu talep ediyorum. (Daha önce auth server'da tanýmlandý)
                 options.ClaimActions.MapUniqueJsonKey("Country", "Country"); //AuthServerdan gelen claim ismiyle buradaki claim'i maple
                 options.ClaimActions.MapUniqueJsonKey("City", "City"); //AuthServerdan gelen claim ismiyle buradaki claim'i maple
+
+                options.Scope.Add("RolesCustomResource"); //Role scope'unu talep ediyorum. (Daha önce auth server'da tanýmlandý)
+                options.ClaimActions.MapUniqueJsonKey("Role", "Role"); //AuthServerdan gelen claim ismiyle buradaki claim'i maple
+                options.TokenValidationParameters = new TokenValidationParameters //Role bazlý yetkilendirme yaptýðýmý bildiriyorum
+                {
+                    RoleClaimType = "Role" //Role claim'den bilgiyi aldýrýyorum
+                };
             });
 
             services.AddControllersWithViews();

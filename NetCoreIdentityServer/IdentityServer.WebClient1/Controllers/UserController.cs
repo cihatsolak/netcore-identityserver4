@@ -100,5 +100,19 @@ namespace IdentityServer.WebClient1.Controllers
 
             return RedirectToAction(nameof(Index));
         }
+
+        [HttpGet]
+        [Authorize(Roles = "Admin")]
+        public IActionResult AdminIndex()
+        {
+            return View();
+        }
+
+        [HttpGet]
+        [Authorize(Roles = "Customer, Admin")]
+        public IActionResult CustomerIndex()
+        {
+            return View();
+        }
     }
 }
