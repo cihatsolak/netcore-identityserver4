@@ -1,9 +1,9 @@
 ﻿using IdentityServer.AuthServer.Models;
 using System.Threading.Tasks;
 
-namespace IdentityServer.AuthServer.Repositories.Users
+namespace IdentityServer.AuthServer.Services.Users
 {
-    public interface ICustomUserRepository
+    public interface ICustomUserService
     {
         Task<bool> ValidatePasswordAsync(string email, string password);
         Task<CustomUser> FindByIdAsync(int id);

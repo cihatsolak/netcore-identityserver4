@@ -1,5 +1,6 @@
 using IdentityServer.AuthServer.Models;
-using IdentityServer.AuthServer.Repositories.Users;
+using IdentityServer.AuthServer.Services.Profiles;
+using IdentityServer.AuthServer.Services.Users;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -25,15 +26,16 @@ namespace IdentityServer.AuthServer
                 options.UseSqlServer(Configuration.GetConnectionString("Default"));
             });
 
-            services.AddScoped<ICustomUserRepository, CustomUserRepository>();
+            services.AddScoped<ICustomUserService, CustomUserService>();
 
             services.AddIdentityServer()
                 .AddInMemoryApiResources(Config.GetApiResources())
                 .AddInMemoryApiScopes(Config.GetApiScopes())
                 .AddInMemoryClients(Config.GetClients())
                 .AddInMemoryIdentityResources(Config.GetIdentityResources())
-                .AddTestUsers(Config.GetTestUsers()) //Geliþtirme için test userlarý ekliyorum.
-                .AddDeveloperSigningCredential(); //Development esnasýnda kullanabileceðim bir public key ve Private key oluþturur.
+                //.AddTestUsers(Config.GetTestUsers()) //Geliþtirme için test userlarý ekliyorum.
+                .AddDeveloperSigningCredential() //Development esnasýnda kullanabileceðim bir public key ve Private key oluþturur.
+                .AddProfileService<CustomProfileService>(); //Claim tanýmlamalarý 
 
             services.AddControllersWithViews();
         }

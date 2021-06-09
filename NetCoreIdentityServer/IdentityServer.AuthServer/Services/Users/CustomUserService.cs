@@ -2,13 +2,13 @@
 using Microsoft.EntityFrameworkCore;
 using System.Threading.Tasks;
 
-namespace IdentityServer.AuthServer.Repositories.Users
+namespace IdentityServer.AuthServer.Services.Users
 {
-    public class CustomUserRepository : ICustomUserRepository
+    public class CustomUserService : ICustomUserService
     {
         private readonly DbSet<CustomUser> _customUsers;
 
-        public CustomUserRepository(CustomDbContext context)
+        public CustomUserService(CustomDbContext context)
         {
             _customUsers = context.CustomUsers;
         }

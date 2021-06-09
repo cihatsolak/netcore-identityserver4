@@ -3,7 +3,7 @@
 
 
 using IdentityModel;
-using IdentityServer.AuthServer.Repositories.Users;
+using IdentityServer.AuthServer.Services.Users;
 using IdentityServer4;
 using IdentityServer4.Events;
 using IdentityServer4.Extensions;
@@ -35,14 +35,14 @@ namespace IdentityServerHost.Quickstart.UI
         private readonly IAuthenticationSchemeProvider _schemeProvider;
         private readonly IEventService _events;
 
-        private readonly ICustomUserRepository _customUserRepository;
+        private readonly ICustomUserService _customUserRepository;
 
         public AccountController(
             IIdentityServerInteractionService interaction,
             IClientStore clientStore,
             IAuthenticationSchemeProvider schemeProvider,
             IEventService events,
-            ICustomUserRepository customUserRepository)
+            ICustomUserService customUserRepository)
         {
             _interaction = interaction;
             _clientStore = clientStore;
