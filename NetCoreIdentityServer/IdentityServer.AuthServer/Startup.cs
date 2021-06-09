@@ -1,4 +1,5 @@
 using IdentityServer.AuthServer.Models;
+using IdentityServer.AuthServer.Repositories.Users;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -23,6 +24,8 @@ namespace IdentityServer.AuthServer
             {
                 options.UseSqlServer(Configuration.GetConnectionString("Default"));
             });
+
+            services.AddScoped<ICustomUserRepository, CustomUserRepository>();
 
             services.AddIdentityServer()
                 .AddInMemoryApiResources(Config.GetApiResources())

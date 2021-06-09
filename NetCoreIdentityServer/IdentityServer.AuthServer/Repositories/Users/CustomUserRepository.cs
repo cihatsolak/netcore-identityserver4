@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 
 namespace IdentityServer.AuthServer.Repositories.Users
 {
-    internal class CustomUserRepository : ICustomUserRepository
+    public class CustomUserRepository : ICustomUserRepository
     {
         private readonly DbSet<CustomUser> _customUsers;
 
