@@ -41,6 +41,7 @@ namespace IdentityServer.WebClient1
                 options.SaveTokens = true; //Baþarýlý giriþte access/refresh token'ý kaydet.
                 options.Scope.Add("IdentityServer.API1.Read"); //Api1 için okuma izni istiyorum. (Daha önce auth server'da tanýmlandý)
                 options.Scope.Add("offline_access"); //Refresh token scope'unu talep ediyorum. (Daha önce auth server'da tanýmlandý)
+                options.Scope.Add("email"); // email scope'unu talep ediyorum. (Daha önce auth server'da tanýmlandý)
 
                 options.Scope.Add("CountryAndCityCustomResource"); //CountryAndCityCustomResource scope'unu talep ediyorum. (Daha önce auth server'da tanýmlandý)
                 options.ClaimActions.MapUniqueJsonKey("Country", "Country"); //AuthServerdan gelen claim ismiyle buradaki claim'i maple

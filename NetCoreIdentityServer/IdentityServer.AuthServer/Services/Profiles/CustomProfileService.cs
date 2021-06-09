@@ -27,7 +27,7 @@ namespace IdentityServer.AuthServer.Services.Profiles
             List<Claim> claims = new()
             {
                 new Claim(JwtRegisteredClaimNames.Email, user.Email),
-                new Claim(ClaimTypes.Name, user.Username),
+                new Claim("name", user.Username),
                 new Claim("City", user.City)
             };
 

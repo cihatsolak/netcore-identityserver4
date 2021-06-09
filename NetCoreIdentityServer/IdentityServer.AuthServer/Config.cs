@@ -163,6 +163,7 @@ namespace IdentityServer.AuthServer
                         IdentityServerConstants.StandardScopes.OpenId, //OpenId bilgisine erişeyeceğim
                         IdentityServerConstants.StandardScopes.Profile, //Kullanıcı bilgilerine erişeceğim
                         IdentityServerConstants.StandardScopes.OfflineAccess, //Refresh token
+                        IdentityServerConstants.StandardScopes.Email, //Kullanıcı email bilgisi
                         "IdentityServer.API1.Read", //Api1 için okuma izni
                         "CountryAndCityCustomResource", //Custom claims
                         "RolesCustomResource"
@@ -238,7 +239,8 @@ namespace IdentityServer.AuthServer
                     {
                         "Role"
                     }
-                }
+                },
+                new IdentityResources.Email() //Client tarafından email alabilmek
             };
 
             return identityResources;
