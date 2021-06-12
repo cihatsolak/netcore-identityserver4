@@ -51,7 +51,8 @@ namespace IdentityServer.WebClient1
                 options.ClaimActions.MapUniqueJsonKey("Role", "Role"); //AuthServerdan gelen claim ismiyle buradaki claim'i maple
                 options.TokenValidationParameters = new TokenValidationParameters //Role bazlý yetkilendirme yaptýðýmý bildiriyorum
                 {
-                    RoleClaimType = "Role" //Role claim'den bilgiyi aldýrýyorum
+                    RoleClaimType = "Role", //Role claim'den bilgiyi aldýrýyorum
+                    NameClaimType = "Name"
                 };
             });
 
