@@ -207,6 +207,35 @@ namespace IdentityServer.AuthServer
                     AbsoluteRefreshTokenLifetime = (int)(DateTime.Now.AddDays(50) - DateTime.Now).TotalSeconds, //Refresh token ömrünü 50 gün ayarladım
                     RefreshTokenUsage = TokenUsage.ReUse, //OneTimeOnly: Bu refresh token'ı bir kere kullanbilirsin. || ReUse: Tekrar tekrar kullanabilirsin.
                     RequireConsent = false //login'de onay ekranı çıkmayacak.
+                },
+                new Client()
+                {
+                    ClientName = "Angular Identity Server",
+                    ClientId = "angular-js-client",
+                    RequireClientSecret = false, //Js uygulamalarında secret tutmak güvensiz olduğu için client-secret devre dışı bırakıyoruz.
+                    AllowedGrantTypes = GrantTypes.Code,
+                    AllowedScopes = new List<string>
+                    {
+                        IdentityServerConstants.StandardScopes.OpenId, //Kullanıcının id'sine erişeyeceğim (zorunlu)
+                        IdentityServerConstants.StandardScopes.Profile, //Kullanıcı bilgilerine erişeceğim (given_name, family name)
+                        IdentityServerConstants.StandardScopes.OfflineAccess, //Refresh token
+                        IdentityServerConstants.StandardScopes.Email, //Kullanıcı email bilgisi
+                        "IdentityServer.API1.Read", //Api1 için okuma izni
+                        "CountryAndCityCustomResource", //Custom claims
+                        "RolesCustomResource"
+                    },
+                    RedirectUris = new List<string>
+                    {
+                         "http://localhost:4200/callback" //kullanıcı bilgilerini girdikten sonra bu sayfaya yönlenecek
+                    },
+                    PostLogoutRedirectUris = new List<string> //Uygulamadan çıkış yaptıldığında
+                    {
+                        "http://localhost:4200"
+                    },
+                    AllowedCorsOrigins = new List<string>
+                    {
+                         "http://localhost:4200"
+                    }
                 }
             };
 
