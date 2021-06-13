@@ -236,7 +236,32 @@ namespace IdentityServer.AuthServer
                     {
                          "http://localhost:4200"
                     }
-                }
+                },
+                new Client()
+                {
+                    ClientName = "Web - Sample Client 5 - ResourceOwner",
+                    ClientId = "SampleClient5",
+                    ClientSecrets = new List<Secret>
+                    {
+                        new Secret("SampleClientSecret".Sha256())
+                    },
+                    AllowedGrantTypes = GrantTypes.ResourceOwnerPassword,
+                    AllowedScopes = new List<string> //Bu web uygulaması hangi izinlere sahip olacak?
+                    {
+                        IdentityServerConstants.StandardScopes.OpenId, //OpenId bilgisine erişeyeceğim
+                        IdentityServerConstants.StandardScopes.Profile, //Kullanıcı bilgilerine erişeceğim
+                        IdentityServerConstants.StandardScopes.OfflineAccess, //Refresh token
+                        IdentityServerConstants.StandardScopes.Email, //Kullanıcı email bilgisi
+                        "IdentityServer.API1.Read", //Api1 için okuma izni
+                        "CountryAndCityCustomResource", //Custom claims
+                        "RolesCustomResource"
+                    },
+                    RequirePkce = false,
+                    AccessTokenLifetime = 2 * 60 * 30, //Access token ömrünü 2 saat ayarladım
+                    AllowOfflineAccess = true, //Refresh token yayınlanması için
+                    AbsoluteRefreshTokenLifetime = (int)(DateTime.Now.AddDays(50) - DateTime.Now).TotalSeconds, //Refresh token ömrünü 50 gün ayarladım
+                    RefreshTokenUsage = TokenUsage.ReUse, //OneTimeOnly: Bu refresh token'ı bir kere kullanbilirsin. || ReUse: Tekrar tekrar kullanabilirsin.
+                },
             };
 
             return clients;

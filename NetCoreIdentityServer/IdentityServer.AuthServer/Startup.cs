@@ -1,5 +1,6 @@
 using IdentityServer.AuthServer.Models;
 using IdentityServer.AuthServer.Services.Profiles;
+using IdentityServer.AuthServer.Services.Resources;
 using IdentityServer.AuthServer.Services.Users;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -35,7 +36,8 @@ namespace IdentityServer.AuthServer
                 .AddInMemoryIdentityResources(Config.GetIdentityResources())
                 //.AddTestUsers(Config.GetTestUsers()) //Geliþtirme için test userlarý ekliyorum.
                 .AddDeveloperSigningCredential() //Development esnasýnda kullanabileceðim bir public key ve Private key oluþturur.
-                .AddProfileService<CustomProfileService>(); //Claim tanýmlamalarý 
+                .AddProfileService<CustomProfileService>()
+                .AddResourceOwnerValidator<ResourceOwnerPasswordValidator>(); //Claim tanýmlamalarý 
 
             services.AddControllersWithViews();
         }
