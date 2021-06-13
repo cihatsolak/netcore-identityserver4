@@ -28,6 +28,8 @@ namespace IdentityAPI.AuthServer
 
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddLocalApiAuthentication(); //IdentityServer bir api gibi davranıcak.
+
             services.AddControllersWithViews();
 
             services.AddDbContext<ApplicationDbContext>(options =>

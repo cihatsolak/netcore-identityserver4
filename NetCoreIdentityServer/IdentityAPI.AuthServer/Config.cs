@@ -52,6 +52,10 @@ namespace IdentityAPI.AuthServer
                             Value = "SecretAPI2".Sha256()
                         }
                     }
+                },
+                new ApiResource
+                {
+                    Name = IdentityServerConstants.LocalApi.ScopeName
                 }
             };
 
@@ -97,6 +101,10 @@ namespace IdentityAPI.AuthServer
                     Name = "IdentityServer.API2.Update",
                     DisplayName = "API 2 - Güncelleme İzni"
                 },
+                new ApiScope
+                {
+                    Name = IdentityServerConstants.LocalApi.ScopeName
+                }
             };
 
             return apiScopes;
@@ -244,7 +252,7 @@ namespace IdentityAPI.AuthServer
                     {
                         new Secret("SampleClientSecret".Sha256())
                     },
-                    AllowedGrantTypes = GrantTypes.ResourceOwnerPassword,
+                    AllowedGrantTypes = GrantTypes.ResourceOwnerPasswordAndClientCredentials,
                     AllowedScopes = new List<string> //Bu web uygulaması hangi izinlere sahip olacak?
                     {
                         IdentityServerConstants.StandardScopes.OpenId, //OpenId bilgisine erişeyeceğim
@@ -253,7 +261,8 @@ namespace IdentityAPI.AuthServer
                         IdentityServerConstants.StandardScopes.Email, //Kullanıcı email bilgisi
                         "IdentityServer.API1.Read", //Api1 için okuma izni
                         "CountryAndCityCustomResource", //Custom claims
-                        "RolesCustomResource"
+                        "RolesCustomResource",
+                        IdentityServerConstants.LocalApi.ScopeName
                     },
                     RequirePkce = false,
                     AccessTokenLifetime = 2 * 60 * 30, //Access token ömrünü 2 saat ayarladım
