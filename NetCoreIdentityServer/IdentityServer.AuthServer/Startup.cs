@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using System.Reflection;
 
 namespace IdentityServer.AuthServer
 {
@@ -29,11 +30,32 @@ namespace IdentityServer.AuthServer
 
             services.AddScoped<ICustomUserService, CustomUserService>();
 
+            string assemblyName = typeof(Startup).GetTypeInfo().Assembly.GetName().Name;
             services.AddIdentityServer()
-                .AddInMemoryApiResources(Config.GetApiResources())
-                .AddInMemoryApiScopes(Config.GetApiScopes())
-                .AddInMemoryClients(Config.GetClients())
-                .AddInMemoryIdentityResources(Config.GetIdentityResources())
+                .AddConfigurationStore(options => //climt, resource, scope
+                {
+                    options.ConfigureDbContext = dbContextOptionsBuilder =>
+                    {
+                        dbContextOptionsBuilder.UseSqlServer(Configuration.GetConnectionString("Default"), sqlServerOptionsAction =>
+                        {
+                            sqlServerOptionsAction.MigrationsAssembly(assemblyName);
+                        });
+                    };
+                })
+                .AddOperationalStore(options => //refresh token, authorize code
+                {
+                    options.ConfigureDbContext = dbContextOptionsBuilder =>
+                    {
+                        dbContextOptionsBuilder.UseSqlServer(Configuration.GetConnectionString("Default"), sqlServerOptionsAction =>
+                        {
+                            sqlServerOptionsAction.MigrationsAssembly(assemblyName);
+                        });
+                    };
+                })
+                //.AddInMemoryApiResources(Config.GetApiResources())
+                //.AddInMemoryApiScopes(Config.GetApiScopes())
+                //.AddInMemoryClients(Config.GetClients())
+                //.AddInMemoryIdentityResources(Config.GetIdentityResources())
                 //.AddTestUsers(Config.GetTestUsers()) //Geliþtirme için test userlarý ekliyorum.
                 .AddDeveloperSigningCredential() //Development esnasýnda kullanabileceðim bir public key ve Private key oluþturur.
                 .AddProfileService<CustomProfileService>()
