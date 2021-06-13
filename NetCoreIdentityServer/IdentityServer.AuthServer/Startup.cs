@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using System.Reflection;
 
 namespace IdentityServer.AuthServer
 {
@@ -29,7 +30,28 @@ namespace IdentityServer.AuthServer
 
             services.AddScoped<ICustomUserService, CustomUserService>();
 
+            string assemblyName = typeof(Startup).GetTypeInfo().Assembly.GetName().Name;
             services.AddIdentityServer()
+                .AddConfigurationStore(options =>
+                {
+                    options.ConfigureDbContext = dbContextOptionsBuilder =>
+                    {
+                        dbContextOptionsBuilder.UseSqlServer(Configuration.GetConnectionString("Default"), sqlServerOptionsAction =>
+                        {
+                            sqlServerOptionsAction.MigrationsAssembly(assemblyName);
+                        });
+                    };
+                })
+                .AddOperationalStore(options =>
+                {
+                    options.ConfigureDbContext = dbContextOptionsBuilder =>
+                    {
+                        dbContextOptionsBuilder.UseSqlServer(Configuration.GetConnectionString("Default"), sqlServerOptionsAction =>
+                        {
+                            sqlServerOptionsAction.MigrationsAssembly(assemblyName);
+                        });
+                    };
+                })
                 .AddInMemoryApiResources(Config.GetApiResources())
                 .AddInMemoryApiScopes(Config.GetApiScopes())
                 .AddInMemoryClients(Config.GetClients())
