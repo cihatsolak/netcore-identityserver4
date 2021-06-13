@@ -52,6 +52,7 @@ namespace IdentityServer.WebClient1.Controllers
 
             if (tokenResponse.IsError)
             {
+                ModelState.AddModelError(string.Empty, "Kullanıcı adı veya şifre yanluş.");
                 return View(loginViewModel);
             }
 
@@ -63,6 +64,7 @@ namespace IdentityServer.WebClient1.Controllers
 
             if (userInfoResponse.IsError)
             {
+                ModelState.AddModelError(string.Empty, "Kullanıcı bilgileri alınamadı.");
                 return View(loginViewModel);
             }
 

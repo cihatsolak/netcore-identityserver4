@@ -45,6 +45,13 @@ namespace IdentityServer.WebClient1.Controllers
         }
 
         [HttpGet]
+        public async Task<IActionResult> SignOutV2()
+        {
+            await HttpContext.SignOutAsync("WebClient1Cookie"); //Siteden çıkış yapalım
+            return RedirectToAction("Index", "Home");
+        }
+
+        [HttpGet]
         public async Task<IActionResult> GetRefreshToken()
         {
             HttpClient httpClient = new();
