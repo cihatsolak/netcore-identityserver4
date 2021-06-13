@@ -32,7 +32,7 @@ namespace IdentityServer.AuthServer
 
             string assemblyName = typeof(Startup).GetTypeInfo().Assembly.GetName().Name;
             services.AddIdentityServer()
-                .AddConfigurationStore(options =>
+                .AddConfigurationStore(options => //climt, resource, scope
                 {
                     options.ConfigureDbContext = dbContextOptionsBuilder =>
                     {
@@ -42,7 +42,7 @@ namespace IdentityServer.AuthServer
                         });
                     };
                 })
-                .AddOperationalStore(options =>
+                .AddOperationalStore(options => //refresh token, authorize code
                 {
                     options.ConfigureDbContext = dbContextOptionsBuilder =>
                     {
