@@ -3,19 +3,21 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31129.286
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IdentityServer.AuthServer", "IdentityServer.AuthServer\IdentityServer.AuthServer.csproj", "{64F66777-6294-4007-BBA4-E61E75A15754}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IdentityServer.AuthServer", "IdentityServer.AuthServer\IdentityServer.AuthServer.csproj", "{64F66777-6294-4007-BBA4-E61E75A15754}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "WebApps", "WebApps", "{8191C48B-E4E1-40F6-9F65-01952A2187DE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IdentityServer.WebClient1", "IdentityServer.WebClient1\IdentityServer.WebClient1.csproj", "{32A8AB88-25A3-40B3-93E7-775B05EDBED6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IdentityServer.WebClient1", "IdentityServer.WebClient1\IdentityServer.WebClient1.csproj", "{32A8AB88-25A3-40B3-93E7-775B05EDBED6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IdentityServer.WebClient2", "IdentityServer.WebClient2\IdentityServer.WebClient2.csproj", "{83BBC9F6-5F52-4002-891F-391F32A109A1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IdentityServer.WebClient2", "IdentityServer.WebClient2\IdentityServer.WebClient2.csproj", "{83BBC9F6-5F52-4002-891F-391F32A109A1}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "APIApps", "APIApps", "{5C85E9BA-7C80-43F5-9D5A-CCE3F85BF959}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IdentityServer.API1", "IdentityServer.API1\IdentityServer.API1.csproj", "{8DC8A2FA-2EAC-40B3-9D8E-640DD90F8AFD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IdentityServer.API1", "IdentityServer.API1\IdentityServer.API1.csproj", "{8DC8A2FA-2EAC-40B3-9D8E-640DD90F8AFD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IdentityServer.API2", "IdentityServer.API2\IdentityServer.API2.csproj", "{05047238-074D-4AB6-8D7F-593260D02FFD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IdentityServer.API2", "IdentityServer.API2\IdentityServer.API2.csproj", "{05047238-074D-4AB6-8D7F-593260D02FFD}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IdentityAPI.AuthServer", "IdentityAPI.AuthServer\IdentityAPI.AuthServer.csproj", "{76EE5BDF-8C60-4AC5-80BF-26807078C170}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -43,6 +45,10 @@ Global
 		{05047238-074D-4AB6-8D7F-593260D02FFD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{05047238-074D-4AB6-8D7F-593260D02FFD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{05047238-074D-4AB6-8D7F-593260D02FFD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{76EE5BDF-8C60-4AC5-80BF-26807078C170}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{76EE5BDF-8C60-4AC5-80BF-26807078C170}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{76EE5BDF-8C60-4AC5-80BF-26807078C170}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{76EE5BDF-8C60-4AC5-80BF-26807078C170}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
