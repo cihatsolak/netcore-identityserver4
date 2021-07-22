@@ -1,4 +1,3 @@
-.. _refStartup:
 Startup
 =======
 
@@ -6,7 +5,6 @@ IdentityServer is a combination of middleware and services.
 All configuration is done in your startup class.
 
 Configuring services
-^^^^^^^^^^^^^^^^^^^^
 You add the IdentityServer services to the DI system by calling::
 
     public void ConfigureServices(IServiceCollection services)
@@ -18,9 +16,7 @@ Optionally you can pass in options into this call. See :ref:`here <refOptions>` 
 
 This will return you a builder object that in turn has a number of convenience methods to wire up additional services.
 
-.. _refStartupKeyMaterial:
 Key material
-^^^^^^^^^^^^
 IdentityServer supports X.509 certificates (both raw files and a reference to the Windows certificate store), 
 RSA keys and EC keys for token signatures and validation. Each key can be configured with a (compatible) signing algorithm, 
 e.g. RS256, RS384, RS512, PS256, PS384, PS512, ES256, ES384 or ES512.
@@ -35,7 +31,6 @@ You can configure the key material with the following methods:
     Adds a key for validating tokens. They will be used by the internal token validator and will show up in the discovery document.
 
 In-Memory configuration stores
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 The various "in-memory" configuration APIs allow for configuring IdentityServer from an in-memory list of configuration objects.
 These "in-memory" collections can be hard-coded in the hosting application, or could be loaded dynamically from a configuration file or a database.
@@ -54,7 +49,6 @@ This style of configuration might also be appropriate for production scenarios i
     Registers ``IResourceStore`` implementation based on the in-memory collection of ``ApiResource`` configuration objects.
 
 Test stores
-^^^^^^^^^^^
 
 The ``TestUser`` class models a user, their credentials, and claims in IdentityServer. 
 Use of ``TestUser`` is similar to the use of the "in-memory" stores in that it is intended for when prototyping, developing, and/or testing.
@@ -66,7 +60,6 @@ The use of ``TestUser`` is not recommended in production.
     Also registers implementations of ``IProfileService`` and ``IResourceOwnerPasswordValidator``.
 
 Additional services
-^^^^^^^^^^^^^^^^^^^
 
 * ``AddExtensionGrantValidator``
     Adds ``IExtensionGrantValidator`` implementation for use with extension grants.
@@ -107,7 +100,6 @@ Additional services
     Adds the X509 secret validators for mutual TLS.
 
 Caching
-^^^^^^^
 
 Client and resource configuration data is used frequently by IdentityServer.
 If this data is being loaded from a database or other external store, then it might be expensive to frequently re-load the same data.
@@ -137,7 +129,7 @@ The default implementation of the ``ICache<T>`` itself relies upon the ``IMemory
 If you wish to customize the in-memory caching behavior, you can replace the ``IMemoryCache`` implementation in the dependency injection system.
 
 Configuring the pipeline
-^^^^^^^^^^^^^^^^^^^^^^^^
+
 You need to add IdentityServer to the pipeline by calling::
 
     public void Configure(IApplicationBuilder app)
